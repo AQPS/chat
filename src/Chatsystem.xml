@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mendix.chatsystem.Chatsystem" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Chatsystem</name>
+    <description>My widget description</description>
+    <icon/>
+    <properties>
+        <propertyGroup caption="General">
+
+
+            <property key="InputMessage" type="attribute">
+                <caption>Attribute</caption>
+                <description/>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+
+
+            <property key="onChangeAction" type="action" required="false">
+        <caption>On change</caption>
+        <description/>
+    </property>
+
+         <!-- Use action property to trigger a microflow
+            <property key="retrieveListAction" type="action" required="true">
+                <caption>Retrieve List Action</caption>
+                <description>Select a microflow to retrieve the list of items.</description>
+            </property> -->
+
+
+              <property key="retrieveListAction" type="datasource" isList="true">
+                <caption>Data Source</caption>
+                <description>Select a microflow or nanoflow to retrieve the list of items.</description>
+            </property>
+
+
+        </propertyGroup>
+    </properties>
+</widget>
