@@ -19,10 +19,10 @@
             </property>
 
 
-            <property key="onChangeAction" type="action" required="false">
+            <!-- <property key="onChangeAction" type="action" required="false">
         <caption>On change</caption>
         <description/>
-    </property>
+    </property> -->
 
          <!-- Use action property to trigger a microflow
             <property key="retrieveListAction" type="action" required="true">
@@ -31,10 +31,10 @@
             </property> -->
 
 
-              <property key="retrieveListAction" type="datasource" isList="true">
+              <!-- <property key="retrieveListAction" type="datasource" isList="true">
                 <caption>Data Source</caption>
                 <description>Select a microflow or nanoflow to retrieve the list of items.</description>
-            </property>
+            </property> -->
 
 
         </propertyGroup>
