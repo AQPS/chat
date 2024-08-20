@@ -28,7 +28,7 @@ const MentionList = ({ items, command }) => (
 );
 
 // Main Chatsystem component
-export const Chatsystem = ({ InputMessage, MentionJson }) => {
+export const Chatsystem = ({ InputMessage, MentionJson, IdentityList }) => {
   const [editor, setEditor] = useState(null);
 
   // Initialize editor

@@ -26,6 +26,12 @@
                 </attributeTypes>
             </property>
 
+            <property key="IdentityList" type="datasource" isList="true">
+
+                <caption>Identity List</caption>
+                <!-- <description/>              -->
+            </property>
+
 
             <!-- <property key="onChangeAction" type="action" required="false">
         <caption>On change</caption>
