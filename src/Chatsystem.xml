@@ -18,6 +18,14 @@
                 </attributeTypes>
             </property>
 
+            <property key="MentionJson" type="attribute">
+                <caption>Attribute</caption>
+                <description/>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+
 
             <!-- <property key="onChangeAction" type="action" required="false">
         <caption>On change</caption>
