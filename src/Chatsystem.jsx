@@ -6,32 +6,58 @@ import Link from '@tiptap/extension-link';
 import TextStyle from '@tiptap/extension-text-style';
 import Image from '@tiptap/extension-image';
 import { ReactRenderer } from '@tiptap/react';
+import { MentionList } from './components/MentionList';
 import tippy from 'tippy.js';
 import './Chatsystem.css'; // Import the CSS file
-
-// Sample mention items (just names now)
-const mentionNames = ['Alice', 'Bob', 'Charlie'];
-
+ 
+ 
 // Custom mention list component
-const MentionList = ({ items, command }) => (
-  <div className="mention-list">
-    {items.map((item, index) => (
-      <button
-        key={index}
-        onClick={() => command(item)}
-        className="mention-item"
-      >
-        {item}
-      </button>
-    ))}
-  </div>
-);
-
+// const MentionList = ({ editor, command }) => (
+//   <div className="mention-list">
+//     {editor.options.editorProps.items.map((item, index) =>
+//           <button
+//             key={index}
+//             onClick={() => command({id: item})}
+//             className="mention-item"
+//           >
+//             {item}
+//           </button>
+//     )}
+//   </div>
+// )
+   
+ 
+ 
 // Main Chatsystem component
-export const Chatsystem = ({ InputMessage, MentionJson, IdentityList }) => {
-  const [editor, setEditor] = useState(null);
+export const Chatsystem = ({ InputMessage, MentionJson, IdentityList, MentionName }) => {
+  const [ready, setReady] = useState(false)
+  const [ mentions, setMentions ] = useState([])
 
-  // Initialize editor
+  useEffect (() => {
+    if (IdentityList.status === "available") {
+      const toMention = []
+      const itemsLength = IdentityList.items.length
+      for (let i = 0; i < itemsLength; i++){
+        const fullname = MentionName.get(IdentityList.items[i]).value
+        if (fullname) {
+          toMention.push(fullname)
+        } 
+      }
+      setMentions(toMention)
+      setReady(true)
+    }
+  },[IdentityList])
+
+  return (
+    <div>
+    {ready && <Chat InputMessage={InputMessage} Mentions={mentions} /> }
+    </div>
+  )
+}
+
+const Chat = ({ InputMessage, Mentions }) => {
+  const [editor, setEditor] = useState(null);
+  // Initialize editor  
   const editorInstance = useEditor({
     extensions: [
       StarterKit,
@@ -46,21 +72,22 @@ export const Chatsystem = ({ InputMessage, MentionJson, IdentityList }) => {
       }),
       Mention.configure({
         suggestion: {
-          items: ({ query }) =>
-            mentionNames.filter(name =>
+          items: ({ query }) => {
+            return Mentions.filter(name =>
               name.toLowerCase().includes(query.toLowerCase())
-            ),
+            )
+          },
           render: () => {
             let component;
             let popup;
-
+ 
             return {
               onStart: (props) => {
                 component = new ReactRenderer(MentionList, {
                   props,
                   editor: props.editor,
                 });
-
+ 
                 popup = tippy('body', {
                   getReferenceClientRect: props.clientRect,
                   appendTo: () => document.body,
@@ -99,7 +126,7 @@ export const Chatsystem = ({ InputMessage, MentionJson, IdentityList }) => {
       }
     },
   });
-
+ 
   useEffect(() => {
     if (editorInstance) {
       setEditor(editorInstance);
@@ -109,9 +136,9 @@ export const Chatsystem = ({ InputMessage, MentionJson, IdentityList }) => {
           editorInstance.commands.setContent(currentContent);
         }
       }
-    }
+    }  
   }, [InputMessage, editorInstance]);
-
+ 
   return (
     <div className="container">
       <div className="toolbar">

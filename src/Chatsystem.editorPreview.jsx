@@ -5,6 +5,6 @@ export function preview({ sampleText }) {
     return <HelloWorldSample sampleText={sampleText} />;
 }
 
-export function getPreviewCss() {
-    return require("./ui/Chatsystem.css");
-}
+// export function getPreviewCss() {
+//     return require("./ui/Chatsystem.css");
+// }
