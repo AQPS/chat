@@ -10,7 +10,7 @@
   },
   "license": "Apache-2.0",
   "config": {
-    "projectPath": "C:/Users/Puja Bhandari/Mendix/BradkenTMA-puja-mentionChat_2",
+    "projectPath": "C:/Users/Puja Bhandari/Mendix/BradkenTMA-stylingfix-puja",
     "mendixHost": "http://localhost:8080",
     "developmentPort": 3000
   },
@@ -32,7 +32,12 @@
     "@tiptap/extension-image": "^2.6.4",
     "@tiptap/extension-link": "^2.6.4",
     "@tiptap/extension-mention": "^2.6.4",
+    "@tiptap/extension-table": "^2.6.5",
+    "@tiptap/extension-table-cell": "^2.6.5",
+    "@tiptap/extension-table-header": "^2.6.5",
+    "@tiptap/extension-table-row": "^2.6.5",
     "@tiptap/extension-text-style": "^2.6.4",
+    "@tiptap/extension-underline": "^2.6.5",
     "@tiptap/react": "^2.6.4",
     "@tiptap/starter-kit": "^2.6.4",
     "classnames": "^2.2.6",
