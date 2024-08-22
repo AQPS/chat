@@ -16,7 +16,7 @@ import '../Chatsystem.css'
       items[index];
   
       if (item) {
-        props.command({ id: item, name: "hello" });
+        props.command({ id: item.identityId, label: item.fullname });
       }
     };
   
@@ -66,7 +66,7 @@ import '../Chatsystem.css'
               key={index}
               onClick={() => selectItem(index)}
             >
-              {item}
+              {item.fullname}
             </button>
           ))
         ) : (
