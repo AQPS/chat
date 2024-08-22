@@ -9,6 +9,11 @@ import { ReactRenderer } from '@tiptap/react';
 import { MentionList } from './components/MentionList';
 import tippy from 'tippy.js';
 import './Chatsystem.css'; // Import the CSS file
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import Underline from '@tiptap/extension-underline';
  
  
 // Custom mention list component
@@ -130,6 +135,13 @@ const Chat = ({ InputMessage, Mentions }) => {
           },
         },
       }),
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableCell,
+      TableHeader,
+      Underline,
     ],
     content: InputMessage || '<p>Start typing with @ to mention someone...</p>',
     onUpdate: ({ editor }) => {
@@ -161,18 +173,19 @@ const Chat = ({ InputMessage, Mentions }) => {
         <button onClick={() => editor?.chain().focus().toggleItalic().run()} className="button">
           <em>I</em> {/* Italic Icon */}
         </button>
+        <button onClick={() => editor?.chain().focus().toggleUnderline().run()} className="button">
+      <u>U</u> {/* Underline Icon */}
+    </button>
         <button onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()} className="button">
           H1 {/* Heading 1 */}
         </button>
         <button onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()} className="button">
           H2 {/* Heading 2 */}
         </button>
-        <button onClick={() => editor?.chain().focus().setLink({ href: 'https://example.com' }).run()} className="button">
-          🔗 {/* Link Icon */}
+        <button onClick={() => editor?.chain().focus().insertTable({ rows: 3, cols: 3 }).run()} className="button">
+          ➕ Table
         </button>
-        <button onClick={() => editor?.chain().focus().setImage({ src: 'https://via.placeholder.com/150' }).run()} className="button">
-          🖼️ {/* Image Icon */}
-        </button>
+
       </div>
       <EditorContent editor={editor} className="editorContent" />
     </div>
