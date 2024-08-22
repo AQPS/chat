@@ -39,8 +39,10 @@ export const Chatsystem = ({ InputMessage, MentionJson, IdentityList, MentionNam
       const itemsLength = IdentityList.items.length
       for (let i = 0; i < itemsLength; i++){
         const fullname = MentionName.get(IdentityList.items[i]).value
+        const identityId = IdentityList.items[i].id
+
         if (fullname) {
-          toMention.push(fullname)
+          toMention.push({fullname, identityId})
         } 
       }
       setMentions(toMention)
@@ -71,10 +73,21 @@ const Chat = ({ InputMessage, Mentions }) => {
         inline: true,
       }),
       Mention.configure({
+        renderHTML ({ node }) {
+          return [
+            "span",
+            {
+              class: "mention",
+              id: node.attrs.id,
+              label: node.attrs.label
+            },
+            `@${node.attrs.label}`
+          ]
+        },
         suggestion: {
           items: ({ query }) => {
             return Mentions.filter(name =>
-              name.toLowerCase().includes(query.toLowerCase())
+              name.fullname.toLowerCase().includes(query.toLowerCase())
             )
           },
           render: () => {
