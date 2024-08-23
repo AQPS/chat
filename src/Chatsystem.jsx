@@ -166,27 +166,6 @@ const Chat = ({ InputMessage, Mentions }) => {
  
   return (
     <div className="container">
-      <div className="toolbar">
-        <button onClick={() => editor?.chain().focus().toggleBold().run()} className="button">
-          <strong>B</strong> {/* Bold Icon */}
-        </button>
-        <button onClick={() => editor?.chain().focus().toggleItalic().run()} className="button">
-          <em>I</em> {/* Italic Icon */}
-        </button>
-        <button onClick={() => editor?.chain().focus().toggleUnderline().run()} className="button">
-      <u>U</u> {/* Underline Icon */}
-    </button>
-        <button onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()} className="button">
-          H1 {/* Heading 1 */}
-        </button>
-        <button onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()} className="button">
-          H2 {/* Heading 2 */}
-        </button>
-        <button onClick={() => editor?.chain().focus().insertTable({ rows: 3, cols: 3 }).run()} className="button">
-          ➕ Table
-        </button>
-
-      </div>
       <EditorContent editor={editor} className="editorContent" />
     </div>
   );
