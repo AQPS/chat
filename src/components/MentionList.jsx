@@ -61,13 +61,13 @@ import '../Chatsystem.css'
       <div className="mention-list, items">
         {items ? (
           items.map((item, index) => (
-            <button
+            <div
               className="mention-item"
               key={index}
               onClick={() => selectItem(index)}
             >
               {item.fullname}
-            </button>
+            </div>
           ))
         ) : (
           <div className="mention-item">No result</div>
