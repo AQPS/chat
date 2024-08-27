@@ -30,6 +30,35 @@ import Underline from '@tiptap/extension-underline';
 //     )}
 //   </div>
 // )
+
+// Function to check if selection is in a table cell
+const isSelectionInTableCell = (editor) => {
+  const { selection } = editor.state;
+  return selection.$anchor.node(-2) && selection.$anchor.node(-2).type.name === 'tableCell';
+};
+
+// Function to delete selected cells
+const deleteSelectedCells = (editor) => {
+  if (isSelectionInTableCell(editor)) {
+    editor.chain().focus().deleteTableColumn().run();
+  }
+};
+
+// Function to delete selected row
+const deleteSelectedRow = (editor) => {
+  if (isSelectionInTableCell(editor)) {
+    editor.chain().focus().deleteTableRow().run();
+  }
+};
+
+// Function to delete the entire table
+const deleteTable = (editor) => {
+  const { selection } = editor.state;
+  const node = selection.$anchor.node(-3);
+  if (node && node.type.name === 'table') {
+    editor.chain().focus().deleteTable().run();
+  }
+};
    
  
  
@@ -68,11 +97,23 @@ const Chat = ({ InputMessage, Mentions }) => {
   const editorInstance = useEditor({
     extensions: [
       StarterKit,
+
       Link.configure({
         openOnClick: true,
         autolink: true,
         linkOnPaste: true,
+        HTMLAttributes: {
+          target: "_blank",
+          rel: 'noopener noreferrer', // Ensures security
+        },
       }),
+
+      //samplcode
+
+      
+  
+      //samplcode
+
       TextStyle, // For bold and italic
       Image.configure({
         inline: true,
@@ -163,6 +204,27 @@ const Chat = ({ InputMessage, Mentions }) => {
       }
     }  
   }, [InputMessage, editorInstance]);
+
+  //table deletion
+  useEffect(() => {
+    if (editor) {
+      editor.on('keydown', (event) => {
+        if (event.key === 'Backspace' || event.key === 'Delete') {
+          event.preventDefault();
+          if (isSelectionInTableCell(editor)) {
+            // Check if the selection is in a cell, row, or entire table
+            if (editor.state.selection.$anchor.node(-2).type.name === 'tableCell') {
+              deleteSelectedCells(editor);
+            } else if (editor.state.selection.$anchor.node(-3).type.name === 'tableRow') {
+              deleteSelectedRow(editor);
+            } else if (editor.state.selection.$anchor.node(-3).type.name === 'table') {
+              deleteTable(editor);
+            }
+          }
+        }
+      });
+    }
+  }, [editor]);
  
   return (
     <div className="container">

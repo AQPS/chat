@@ -62,7 +62,7 @@ import '../Chatsystem.css'
         {items ? (
           items.map((item, index) => (
             <div
-              className="mention-item"
+              className={`mention-item ${selectedIndex === index ? "selected" : ""} `}
               key={index}
               onClick={() => selectItem(index)}
             >
